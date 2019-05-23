@@ -8,4 +8,4 @@ if (file_exists($projectAutoload)) {
 } elseif (file_exists($devAutoload)) {
     require_once $devAutoload;
 }
-require(__DIR__ . '/src/run.php');
+require(__DIR__ . '/../src/run.php');
