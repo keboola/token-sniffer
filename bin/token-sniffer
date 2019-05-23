@@ -1,3 +1,5 @@
 #!/usr/bin/env php
 <?php
-include __DIR__ . '/../src/run.php';
+
+require __DIR__ . '/../../autoload.php';
+require(__DIR__ . '/src/run.php');
