@@ -15,7 +15,7 @@ class Application
         'storage-token' => '[0-9]+-[0-9]+-[0-9A-Za-z]{40}+',
         'manage-token' => '[0-9]+-[0-9A-Za-z]{40}+',
         'aws-access-key'=> '(?<![A-Z0-9])[A-Z0-9]{20}(?![A-Z0-9])',
-        'aws-secret-key'=> '(?<![A-Za-z0-9/+=])[A-Za-z0-9/+=]{40}(?![A-Za-z0-9/+=])'
+        'aws-secret-key'=> '(?<![A-Za-z0-9/+=])[A-Za-z0-9/+=]{40}(?![A-Za-z0-9/+=])',
     ];
 
     /** @var string */
@@ -78,7 +78,7 @@ class Application
             $this->exitWithSuccess();
         }
 
-        throw new Exception(implode("\n", $errorMessages) . "\n";);
+        throw new Exception(implode("\n", $errorMessages) . "\n");
     }
 
     private function parseOutput(string $output): array
@@ -91,7 +91,7 @@ class Application
         return $matches;
     }
 
-    private function buildErrorMessages(array $matches): string
+    private function buildErrorMessages(array $matches): array
     {
         $errorMessages = [];
         foreach ($matches as $match) {
