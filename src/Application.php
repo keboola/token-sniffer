@@ -15,7 +15,8 @@ class Application
         'storage-token' => '[0-9]+-[0-9]+-[0-9A-Za-z]{40}+',
         'manage-token' => '[0-9]+-[0-9A-Za-z]{40}+',
         'aws-access-key'=> '(?<![A-Z0-9])[A-Z0-9]{20}(?![A-Z0-9])',
-        'aws-secret-key'=> '(?<![A-Za-z0-9/+=])[A-Za-z0-9/+=]{40}(?![A-Za-z0-9/+=])',
+        // not git hash . aws secret key
+        'aws-secret-key'=> '(?![0-9a-f]{40})' .'(?<![A-Za-z0-9/+=])[A-Za-z0-9/+=]{40}(?![A-Za-z0-9/+=])',
     ];
 
     /** @var string */
