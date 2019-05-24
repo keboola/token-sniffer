@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+$projectAutoload = __DIR__ . '/../../../autoload.php';
+$devAutoload = __DIR__ . '/../vendor/autoload.php';
+if (file_exists($projectAutoload)) {
+    require_once $projectAutoload;
+} elseif (file_exists($devAutoload)) {
+    require_once $devAutoload;
+}
+require(__DIR__ . '/../src/run.php');

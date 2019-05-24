@@ -1,0 +1,17 @@
+sudo: required
+
+language: bash
+
+services:
+  - docker
+
+before_script:
+  - export APP_IMAGE=keboola-component
+  - docker -v
+  - docker build -t $APP_IMAGE .
+  - docker run $APP_IMAGE composer ci
+
+script:
+  # run test job inside KBC
+  # - docker run --rm -e KBC_STORAGE_TOKEN quay.io/keboola/syrup-cli:latest run-job $KBC_DEVELOPERPORTAL_APP $KBC_APP_TEST_CONFIG_ID test
+  - skip

@@ -1,0 +1,11 @@
+tests/ export-ignore
+docker/ export-ignore
+docker/ export-ignore
+.travis.yml export-ignore
+composer.json export-ignore
+docker-compose.yml export-ignore
+Dockerfile export-ignore
+phpcs.xml export-ignore
+phpstan.neon export-ignore
+phpunit.xml.dist export-ignore
+.dockerignore export-ignore
