@@ -30,6 +30,9 @@ class Application
         }
         $this->path = $realpath . '/';
         $this->excludedDirs = $input['exclude'] ?? [];
+        $this->excludedDirs[] = '.idea';
+        $this->excludedDirs[] = '.git';
+        $this->excludedDirs = array_unique($this->excludedDirs);
     }
 
     public function run(): void
@@ -57,6 +60,7 @@ class Application
 
         if ($process->getExitCode() !== 0) {
             // patterns not found
+            echo "\n\n[OK] No errors\n\n";
             exit(0);
         }
         $output = $process->getOutput();
@@ -102,7 +106,7 @@ class Application
         $opts = getopt('', ['exclude::'], $optind);
         $pos_args = array_slice($argv, $optind);
         if (!array_key_exists(0, $pos_args)) {
-            throw new Exception('Please supply the path to check as parameter' . PHP_EOL);
+            throw new Exception('Please supply the path to check as parameter' . "\n");
         }
         if (array_key_exists('exclude', $opts) && is_string($opts['exclude'])) {
             $opts['exclude'] = [$opts['exclude']];
