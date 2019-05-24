@@ -66,12 +66,17 @@ class Application
 
         if ($process->getExitCode() !== 0) {
             // patterns not found
-            echo "\n\n[OK] No errors\n\n";
-            exit(0);
+            $this->exitWithSuccess();
         }
         $output = $process->getOutput();
         $matches = $this->parseOutput($output);
-        throw new Exception($this->buildViolations($matches));
+
+        $errorMessages = $this->buildErrorMessages($matches);
+        if (!count($errorMessages)) {
+            $this->exitWithSuccess();
+        }
+
+        throw new Exception(implode("\n", $errorMessages) . "\n";);
     }
 
     private function parseOutput(string $output): array
@@ -84,7 +89,7 @@ class Application
         return $matches;
     }
 
-    private function buildViolations(array $matches): string
+    private function buildErrorMessages(array $matches): string
     {
         $errorMessages = [];
         foreach ($matches as $match) {
@@ -109,7 +114,7 @@ class Application
                 }
             }
         }
-        return implode("\n", $errorMessages) . "\n";
+        return $errorMessages;
     }
 
     private function parseInput(): array
@@ -128,5 +133,11 @@ class Application
             $opts[self::PARAM_EXCLUDE_FILE] = [$opts[self::PARAM_EXCLUDE_FILE]];
         }
         return array_merge($opts, $pos_args);
+    }
+
+    private function exitWithSuccess(): void
+    {
+        echo "\n\n[OK] No errors\n\n";
+        exit(0);
     }
 }
