@@ -66,7 +66,7 @@ class ApplicationTest extends TestCase
             'no-token-present' => [
                 ['../fixtures/no-token-present'],
                 0,
-                [''],
+                ['[OK] No errors'],
             ],
             'exclude-some' => [
                 ['--exclude=excluded-dir', '--exclude=excluded-dir2', '../fixtures/exclude-some'],
@@ -74,6 +74,15 @@ class ApplicationTest extends TestCase
                 [
                     'some/deep/structure/other-file-with-manage-token.txt: manage-token found on line 11: Quisque vehicula varius turpis at eleifend. 7-689IHMOtv5lVKkalpgbl77nSdjcQHi9eXTZStyNtF Proin tellus ante.',
                     'some/deep/some-file-with-storage-token.txt: storage-token found on line 7: 78-6-6fIHMOtv5lVKkalpgbl77nSdjcQHi9eXTZStyNtF : token',
+                ],
+            ],
+            'exclude-file' => [
+                ['--exclude=excluded-dir', '--exclude-file=excluded-dir2/some-file-with-storage-token2.txt', '../fixtures/exclude-some'],
+                2,
+                [
+                    'some/deep/structure/other-file-with-manage-token.txt: manage-token found on line 11: Quisque vehicula varius turpis at eleifend. 7-689IHMOtv5lVKkalpgbl77nSdjcQHi9eXTZStyNtF Proin tellus ante.',
+                    'some/deep/some-file-with-storage-token.txt: storage-token found on line 7: 78-6-6fIHMOtv5lVKkalpgbl77nSdjcQHi9eXTZStyNtF : token',
+                    'excluded-dir2/some-file-with-storage-token.txt: storage-token found on line 7: 78-6-6fIHMOtv5lVKkalpgbl77nSdjcQHi9eXTZStyNtF : token',
                 ],
             ],
         ];
