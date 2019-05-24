@@ -51,18 +51,42 @@ class Application
         }, self::PATTERNS);
         $regexp = implode('|', $patterns);
 
-        $cmd = [
+        $excludedDirsParams = [];
+        if (count($this->excludedDirs)) {
+            foreach ($this->excludedDirs as $dir) {
+                $excludedDirsParams[] = '-path';
+                $excludedDirsParams[] = $this->path . $dir;
+                $excludedDirsParams[] = '-o';
+            }
+            // last -o
+            array_pop($excludedDirsParams);
+        }
+
+        $grepCommand = [
             'grep',
             '-rP',
             '--line-number',
+            $regexp,
+            '{}',
+            '+',
         ];
-        if (count($this->excludedDirs)) {
-            $excludedDirsParams = array_map(function ($dir) {
-                return '--exclude-dir=' . $dir;
-            }, $this->excludedDirs);
-            $cmd = array_merge($cmd, $excludedDirsParams);
-        }
-        array_push($cmd, $regexp, $this->path);
+
+        $cmd = array_merge([
+            'find',
+            $this->path,
+            '(',
+            '-type',
+            'd',
+            '(',
+        ], $excludedDirsParams, [
+            ')',
+            '-prune',
+            ')',
+            '-o',
+            '-type',
+            'f',
+            '-exec',
+        ], $grepCommand);
 
         $process = new Process($cmd);
         $process->run();
