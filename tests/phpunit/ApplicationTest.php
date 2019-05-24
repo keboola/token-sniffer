@@ -90,6 +90,11 @@ class ApplicationTest extends TestCase
                 0,
                 ['[OK] No errors'],
             ],
+            'false positives' => [
+                ['../fixtures/false-positives'],
+                0,
+                ['[OK] No errors'],
+            ],
         ];
     }
 }
