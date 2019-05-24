@@ -85,6 +85,11 @@ class ApplicationTest extends TestCase
                     'excluded-dir2/some-file-with-storage-token.txt: storage-token found on line 7: 78-6-6fIHMOtv5lVKkalpgbl77nSdjcQHi9eXTZStyNtF : token',
                 ],
             ],
+            'exclude-file-nothing-else' => [
+                ['--exclude-file=some-file-with-storage-token.txt', '../fixtures/storage-token-present'],
+                0,
+                ['[OK] No errors'],
+            ],
         ];
     }
 }
